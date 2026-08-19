@@ -31,10 +31,13 @@
 
 ## Notes
 
-- All checklist items pass on first validation pass. No [NEEDS CLARIFICATION] markers were
-  needed: the one ambiguous point (whether a todo due "today" counts as overdue) was resolved
-  using a documented, industry-standard default in the Assumptions section rather than a
-  clarification question, since a reasonable default exists.
+- Initial validation pass (before clarification) found no [NEEDS CLARIFICATION] markers in the
+  spec text itself, and one ambiguous point (whether a todo due "today" counts as overdue) was
+  resolved using a documented, industry-standard default in the Assumptions section.
+- A `/speckit-clarify` session on 2026-08-19 resolved one additional ambiguity not covered by a
+  reasonable default: whether the overdue indicator may rely on color alone. This was resolved
+  as color + icon with an accessible label (see Clarifications section and FR-001/FR-009), and
+  all checklist items remain passing after the update.
 - Scope was constrained using existing project documentation (`docs/functional-requirements.md`)
   to keep the overdue indicator a visual-only change with no new sorting/filtering, per the
   project constitution's Simplicity & Scope Discipline principle.

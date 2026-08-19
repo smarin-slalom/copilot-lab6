@@ -8,6 +8,12 @@
 
 **Input**: User description: "Support for Overdue Todo Items - As a todo application user, I want to easily identify and distinguish overdue tasks in my todo list, so that I can prioritize my work and quickly see which tasks are past their due date. Users need a clear, visual way to identify which todos have not been completed by their due date. This helps users quickly spot overdue items without having to manually check dates against today's date."
 
+## Clarifications
+
+### Session 2026-08-19
+
+- Q: Should the overdue indicator rely on color alone, or must it also include a non-color cue like a text label or icon, so it remains perceivable to color-blind users and screen readers? → A: Color change + icon (e.g., warning icon) without text; the icon must carry a descriptive accessible label (e.g., `aria-label`) for screen readers.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Spot overdue todos at a glance (Priority: P1)
@@ -97,7 +103,8 @@ now shows the overdue indicator without any edit having been made to it.
 ### Functional Requirements
 
 - **FR-001**: System MUST visually distinguish, within the todo list, any todo that is
-  incomplete and whose due date has passed ("overdue") from all other todos.
+  incomplete and whose due date has passed ("overdue") from all other todos, using both a
+  color change and an accompanying icon (not color alone).
 - **FR-002**: System MUST NOT display the overdue indicator on any todo that is marked complete,
   regardless of its due date.
 - **FR-003**: System MUST NOT display the overdue indicator on any todo that has no due date
@@ -114,6 +121,9 @@ now shows the overdue indicator without any edit having been made to it.
 - **FR-008**: Users MUST be able to identify all overdue todos in their list by their visual
   appearance alone, without needing to open, edit, or manually compare dates on individual
   todos.
+- **FR-009**: The overdue icon MUST carry a descriptive accessible label (e.g., `aria-label`)
+  so the overdue status is conveyed to assistive technology (e.g., screen readers), not just
+  to sighted users.
 
 ### Key Entities
 
@@ -144,8 +154,9 @@ now shows the overdue indicator without any edit having been made to it.
 - "Today" is evaluated using the date on the device/browser the user is viewing the list with,
   consistent with this being a single-user, desktop-focused application (per
   functional-requirements.md).
-- The overdue indicator is a visual treatment only (e.g., color/text change) on the existing
-  todo list; it does not change list ordering, add filtering, or add sorting, since those are
+- The overdue indicator is a visual treatment only (color change plus an accessible icon, per
+  Clarifications) on the existing todo list; it does not change list ordering, add filtering, or
+  add sorting, since those are
   explicitly out of scope for this application (per functional-requirements.md).
 - No new data is persisted for this feature; overdue status is computed from the existing due
   date and completion status each time the list is rendered.
