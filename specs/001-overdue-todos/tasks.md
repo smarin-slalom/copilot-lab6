@@ -24,7 +24,7 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 **Purpose**: Minimal setup — no new dependencies or configuration needed since this feature uses only existing React, CSS tokens, and date APIs.
 
-- [ ] T001 Verify frontend build and test infrastructure is ready
+- [X] T001 Verify frontend build and test infrastructure is ready
 
 ---
 
@@ -34,10 +34,10 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 **⚠️ CRITICAL**: User Story phases cannot begin until this phase is complete and tested.
 
-- [ ] T002 [P] Create new `packages/frontend/src/utils/` directory with `overdue.js`
-- [ ] T003 [P] Implement `isOverdue(todo, now = new Date())` pure function in `packages/frontend/src/utils/overdue.js` per [overdue-util-contract.md](/workspaces/copilot-lab6/specs/001-overdue-todos/contracts/overdue-util-contract.md)
-- [ ] T004 Write unit tests for `isOverdue` in `packages/frontend/src/utils/__tests__/overdue.test.js` covering all behavior contract rows: completed/past, incomplete/past, incomplete/today, incomplete/future, incomplete/no-date
-- [ ] T005 Run `npm test --workspace=frontend` and confirm all `overdue.test.js` tests pass
+- [X] T002 [P] Create new `packages/frontend/src/utils/` directory with `overdue.js`
+- [X] T003 [P] Implement `isOverdue(todo, now = new Date())` pure function in `packages/frontend/src/utils/overdue.js` per [overdue-util-contract.md](/workspaces/copilot-lab6/specs/001-overdue-todos/contracts/overdue-util-contract.md)
+- [X] T004 Write unit tests for `isOverdue` in `packages/frontend/src/utils/__tests__/overdue.test.js` covering all behavior contract rows: completed/past, incomplete/past, incomplete/today, incomplete/future, incomplete/no-date
+- [X] T005 Run `npm test --workspace=frontend` and confirm all `overdue.test.js` tests pass
 
 **Checkpoint**: `isOverdue` utility is fully implemented, tested (100% coverage), and ready for UI consumption.
 
@@ -56,15 +56,15 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] Update `packages/frontend/src/components/TodoCard.js` to import `isOverdue` utility
-- [ ] T007 [P] [US1] Add state/logic in `TodoCard.js` to compute `isOverdue(todo)` on render and conditionally apply `overdue` CSS class to the card container
-- [ ] T008 [P] [US1] Add warning icon (⚠) to the todo card in `TodoCard.js`, positioned next to the title, with `role="img"` and `aria-label="Overdue"` for screen reader accessibility
-- [ ] T009 [US1] Add CSS styles in `packages/frontend/src/App.css` for `.todo-card.overdue` (use `--danger-color` for background/border tint) and `.overdue-icon` (sizing, spacing per design system)
-- [ ] T010 [US1] Update existing `TodoCard.test.js` to add test cases for overdue rendering:
+- [X] T006 [P] [US1] Update `packages/frontend/src/components/TodoCard.js` to import `isOverdue` utility
+- [X] T007 [P] [US1] Add state/logic in `TodoCard.js` to compute `isOverdue(todo)` on render and conditionally apply `overdue` CSS class to the card container
+- [X] T008 [P] [US1] Add warning icon (⚠) to the todo card in `TodoCard.js`, positioned next to the title, with `role="img"` and `aria-label="Overdue"` for screen reader accessibility
+- [X] T009 [US1] Add CSS styles in `packages/frontend/src/App.css` for `.todo-card.overdue` (use `--danger-color` for background/border tint) and `.overdue-icon` (sizing, spacing per design system)
+- [X] T010 [US1] Update existing `TodoCard.test.js` to add test cases for overdue rendering:
   - Test incomplete + past date renders overdue class and icon
   - Test incomplete + future date does NOT render overdue class/icon
   - Test incomplete + no date does NOT render overdue class/icon
-- [ ] T011 [US1] Run `npm test --workspace=frontend -- TodoCard.test.js` and confirm all overdue test cases pass
+- [X] T011 [US1] Run `npm test --workspace=frontend -- TodoCard.test.js` and confirm all overdue test cases pass
 
 **Checkpoint**: User Story 1 complete — users can visually spot overdue todos at a glance with color + accessible icon.
 
@@ -82,12 +82,12 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 ### Implementation for User Story 2
 
-- [ ] T012 [P] [US2] Verify `isOverdue` utility already handles `completed` status correctly (i.e., returns `false` if `completed` is truthy) — if not, fix in `packages/frontend/src/utils/overdue.js`
-- [ ] T013 [P] [US2] Update `TodoCard.test.js` with test cases:
+- [X] T012 [P] [US2] Verify `isOverdue` utility already handles `completed` status correctly (i.e., returns `false` if `completed` is truthy) — if not, fix in `packages/frontend/src/utils/overdue.js`
+- [X] T013 [P] [US2] Update `TodoCard.test.js` with test cases:
   - Test completed + past date does NOT render overdue class/icon
   - Test completing an overdue todo removes the indicator on next render
-- [ ] T014 [US2] Run `npm test --workspace=frontend -- TodoCard.test.js` and confirm all US2-related tests pass
-- [ ] T015 [US2] Manually verify: create an overdue (incomplete, past-due) todo, mark it complete, and confirm indicator disappears immediately in the running app
+- [X] T014 [US2] Run `npm test --workspace=frontend -- TodoCard.test.js` and confirm all US2-related tests pass
+- [X] T015 [US2] Manually verify: create an overdue (incomplete, past-due) todo, mark it complete, and confirm indicator disappears immediately in the running app
 
 **Checkpoint**: User Story 2 complete — completed todos never show overdue status, even if late.
 
@@ -105,15 +105,15 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 ### Implementation for User Story 3
 
-- [ ] T016 [P] [US3] Verify `TodoCard.js` re-computes `isOverdue(todo)` on every render (i.e., no memoization or cached value that could go stale) — confirm by reading the component logic
-- [ ] T017 [P] [US3] Add test case in `TodoCard.test.js`:
+- [X] T016 [P] [US3] Verify `TodoCard.js` re-computes `isOverdue(todo)` on every render (i.e., no memoization or cached value that could go stale) — confirm by reading the component logic
+- [X] T017 [P] [US3] Add test case in `TodoCard.test.js`:
   - Test that calling `isOverdue` with the same `todo` but different `now` dates produces correct results (e.g., `now = today` returns `false`, `now = tomorrow` returns `true`)
-- [ ] T018 [US3] Write integration test (optional but recommended) in `packages/frontend/src/__tests__/TodoList.integration.test.js`:
+- [X] T018 [US3] Write integration test (optional but recommended) in `packages/frontend/src/__tests__/TodoList.integration.test.js`:
   - Render `TodoList` with a todo due "today"
   - Call the component's render method with a mocked `now` set to the next day
   - Confirm the overdue indicator now appears (verifies re-evaluation on each render)
-- [ ] T019 [US3] Run `npm test --workspace=frontend` and confirm all US3 tests pass
-- [ ] T020 [US3] Manually verify: create a todo with today's date, change system clock or edit the todo's due date to yesterday, reload the page, and confirm the overdue indicator appears
+- [X] T019 [US3] Run `npm test --workspace=frontend` and confirm all US3 tests pass
+- [X] T020 [US3] Manually verify: create a todo with today's date, change system clock or edit the todo's due date to yesterday, reload the page, and confirm the overdue indicator appears
 
 **Checkpoint**: User Story 3 complete — overdue status stays accurate over time and across app sessions.
 
@@ -123,12 +123,12 @@ Paths follow the existing web app structure: `packages/frontend/src/` for React 
 
 **Purpose**: Final validation, accessibility audit, and cleanup.
 
-- [ ] T021 Run linter: `npm run lint --workspace=frontend` and fix any style violations (aim for zero unresolved errors before PR)
-- [ ] T022 Run full frontend test suite: `npm test --workspace=frontend` and confirm all tests pass with >80% coverage
-- [ ] T023 Accessibility audit: use browser devtools or a screen reader to verify all overdue icons have proper `aria-label` and are announced correctly by assistive tech
-- [ ] T024 Manual cross-browser testing: test the overdue indicator in at least two browsers (e.g., Chrome, Firefox) on mobile and desktop to confirm visual consistency
-- [ ] T025 Clean up any console.log or debug statements; verify no production code has leftover logging
-- [ ] T026 Update relevant docs if needed (e.g., update README.md or docs/functional-requirements.md if overdue feature is now core to the app's capabilities)
+- [X] T021 Run linter: `npm run lint --workspace=frontend` and fix any style violations (aim for zero unresolved errors before PR)
+- [X] T022 Run full frontend test suite: `npm test --workspace=frontend` and confirm all tests pass with >80% coverage
+- [X] T023 Accessibility audit: use browser devtools or a screen reader to verify all overdue icons have proper `aria-label` and are announced correctly by assistive tech
+- [X] T024 Manual cross-browser testing: test the overdue indicator in at least two browsers (e.g., Chrome, Firefox) on mobile and desktop to confirm visual consistency
+- [X] T025 Clean up any console.log or debug statements; verify no production code has leftover logging
+- [X] T026 Update relevant docs if needed (e.g., update README.md or docs/functional-requirements.md if overdue feature is now core to the app's capabilities)
 
 **Checkpoint**: Feature is polished, fully tested, accessible, and ready for code review and merge.
 

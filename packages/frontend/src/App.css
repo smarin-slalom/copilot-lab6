@@ -366,6 +366,31 @@ p {
   color: var(--text-secondary);
 }
 
+/* Overdue indicator styles */
+.todo-card.overdue {
+  border-color: var(--danger-color);
+  background-color: rgba(198, 40, 40, 0.05);
+}
+
+[data-theme="dark"] .todo-card.overdue {
+  background-color: rgba(239, 83, 80, 0.08);
+}
+
+.todo-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.overdue-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--danger-color);
+  flex-shrink: 0;
+}
+
 .todo-actions {
   display: flex;
   gap: 8px;

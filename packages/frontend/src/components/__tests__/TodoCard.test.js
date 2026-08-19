@@ -99,4 +99,84 @@ describe('TodoCard Component', () => {
     
     expect(screen.queryByText(/Due:/)).not.toBeInTheDocument();
   });
+
+  describe('Overdue indicator (US1, US2, US3)', () => {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const formatDateString = (date) => {
+      return date.toISOString().split('T')[0];
+    };
+
+    it('should render overdue class and icon for incomplete todo with past due date (US1)', () => {
+      const overdueTodo = { ...mockTodo, dueDate: formatDateString(yesterday), completed: 0 };
+      const { container } = render(<TodoCard todo={overdueTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).toHaveClass('overdue');
+      
+      const icon = screen.getByLabelText('Overdue');
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveAttribute('role', 'img');
+      expect(icon).toHaveTextContent('⚠');
+    });
+
+    it('should not render overdue class or icon for incomplete todo with future due date (US1)', () => {
+      const futureTodo = { ...mockTodo, dueDate: formatDateString(tomorrow), completed: 0 };
+      const { container } = render(<TodoCard todo={futureTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).not.toHaveClass('overdue');
+      
+      const icon = screen.queryByLabelText('Overdue');
+      expect(icon).not.toBeInTheDocument();
+    });
+
+    it('should not render overdue class or icon for incomplete todo with no due date (US1)', () => {
+      const noDateTodo = { ...mockTodo, dueDate: null, completed: 0 };
+      const { container } = render(<TodoCard todo={noDateTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).not.toHaveClass('overdue');
+      
+      const icon = screen.queryByLabelText('Overdue');
+      expect(icon).not.toBeInTheDocument();
+    });
+
+    it('should not render overdue class or icon for completed todo with past due date (US2)', () => {
+      const completedOverdueTodo = { ...mockTodo, dueDate: formatDateString(yesterday), completed: 1 };
+      const { container } = render(<TodoCard todo={completedOverdueTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).not.toHaveClass('overdue');
+      
+      const icon = screen.queryByLabelText('Overdue');
+      expect(icon).not.toBeInTheDocument();
+    });
+
+    it('should not render overdue class or icon for completed todo with today due date (US2)', () => {
+      const completedTodayTodo = { ...mockTodo, dueDate: formatDateString(today), completed: 1 };
+      const { container } = render(<TodoCard todo={completedTodayTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).not.toHaveClass('overdue');
+      
+      const icon = screen.queryByLabelText('Overdue');
+      expect(icon).not.toBeInTheDocument();
+    });
+
+    it('should not render overdue class or icon for incomplete todo due today (US3)', () => {
+      const dueTodayTodo = { ...mockTodo, dueDate: formatDateString(today), completed: 0 };
+      const { container } = render(<TodoCard todo={dueTodayTodo} {...mockHandlers} isLoading={false} />);
+      
+      const card = container.querySelector('.todo-card');
+      expect(card).not.toHaveClass('overdue');
+      
+      const icon = screen.queryByLabelText('Overdue');
+      expect(icon).not.toBeInTheDocument();
+    });
+  });
 });
